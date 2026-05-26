@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Flow — Sense · Think · Decide · Downlink</title>
+<style>
+  :root{--accent:#5cf2d6;--accent2:#7aa2ff;--accent3:#ff8a5c;--muted:#8ea3c9;
+    --line:rgba(122,162,255,.25);--mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{display:grid;place-items:center;padding:4vmin;
+    background:radial-gradient(circle at 50% 30%,#0a1030,#04060f 70%);color:#e9f0ff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  body.clean .cap{display:none}
+  .frame{width:min(96vw,1040px)}
+  .head{font-family:var(--mono);letter-spacing:.24em;color:var(--accent);font-size:12px;margin-bottom:8px;text-align:center}
+  h2{text-align:center;font-size:clamp(22px,3.4vw,36px);font-weight:800;letter-spacing:-.01em;margin-bottom:46px}
+  h2 .g{background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .flow{display:grid;grid-template-columns:repeat(4,1fr)}
+  .step{padding:22px 16px;text-align:center;position:relative;opacity:0;transform:translateY(14px);
+    animation:rise .6s ease forwards}
+  .step:nth-child(1){animation-delay:.1s}.step:nth-child(2){animation-delay:.5s}
+  .step:nth-child(3){animation-delay:.9s}.step:nth-child(4){animation-delay:1.3s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .ic{width:66px;height:66px;margin:0 auto 12px;border-radius:16px;display:grid;place-items:center;font-size:26px;
+    border:1px solid var(--line);background:rgba(122,162,255,.06);box-shadow:0 0 0 rgba(92,242,214,0);
+    animation:glow 4s ease-in-out infinite}
+  .step:nth-child(2) .ic{animation-delay:.4s}.step:nth-child(3) .ic{animation-delay:.8s}.step:nth-child(4) .ic{animation-delay:1.2s}
+  @keyframes glow{0%,100%{box-shadow:0 0 0 rgba(92,242,214,0)}50%{box-shadow:0 0 26px rgba(92,242,214,.35)}}
+  .num{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.2em}
+  .step h3{font-size:18px;margin:10px 0 8px}
+  .step p{color:var(--muted);font-size:13.5px;line-height:1.55}
+  .step:not(:last-child)::after{content:"";position:absolute;right:-2px;top:50px;width:22px;height:2px;
+    background:linear-gradient(90deg,var(--accent2),transparent);opacity:0;animation:fade .5s forwards}
+  .step:nth-child(1)::after{animation-delay:.45s}.step:nth-child(2)::after{animation-delay:.85s}.step:nth-child(3)::after{animation-delay:1.25s}
+  @keyframes fade{to{opacity:1}}
+
+  /* moving data packet along the chain */
+  .rail{position:relative;height:2px;margin:6px 6% 40px;background:linear-gradient(90deg,transparent,var(--line),transparent);border-radius:2px}
+  .packet{position:absolute;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 12px var(--accent);animation:run 5s linear infinite 1.6s}
+  .packet.b{background:var(--accent3);box-shadow:0 0 12px var(--accent3);animation-delay:3.1s}
+  @keyframes run{0%{left:2%;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:98%;opacity:0}}
+
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .m{border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center;
+    background:linear-gradient(180deg,rgba(122,162,255,.05),transparent);opacity:0;animation:rise .6s ease forwards}
+  .m:nth-child(1){animation-delay:1.8s}.m:nth-child(2){animation-delay:1.95s}.m:nth-child(3){animation-delay:2.1s}.m:nth-child(4){animation-delay:2.25s}
+  .m .v{font-size:clamp(24px,3.5vw,34px);font-weight:800;
+    background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .m .k{color:var(--muted);font-size:12.5px;margin-top:6px}
+  @media(max-width:780px){.flow{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}
+    .step:nth-child(2)::after{content:""}}
+  .cap{position:fixed;bottom:14px;right:16px;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em;opacity:.6}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="head">HOW THE CONSTELLATION GATHERS DATA</div>
+  <h2>Sense → <span class="g">Think</span> → Decide → Downlink</h2>
+
+  <div class="flow">
+    <div class="step"><div class="ic">👁</div><div class="num">01</div><h3>Sense</h3>
+      <p>Multispectral &amp; event cameras capture Earth on every pass.</p></div>
+    <div class="step"><div class="ic">🧠</div><div class="num">02</div><h3>Think on orbit</h3>
+      <p>The neuromorphic core runs spiking nets — detecting events at milliwatts.</p></div>
+    <div class="step"><div class="ic">🛰</div><div class="num">03</div><h3>Relay across MIO</h3>
+      <p>Chips mesh across the MIO Layer for persistent global coverage.</p></div>
+    <div class="step"><div class="ic">📡</div><div class="num">04</div><h3>Downlink</h3>
+      <p>Only the answer reaches the ground — alerts in seconds, not hours.</p></div>
+  </div>
+
+  <div class="rail"><span class="packet"></span><span class="packet b"></span></div>
+
+  <div class="metrics">
+    <div class="m"><div class="v">24/7</div><div class="k">persistent coverage</div></div>
+    <div class="m"><div class="v">&lt;10s</div><div class="k">event → alert</div></div>
+    <div class="m"><div class="v">1000×</div><div class="k">less power / inference</div></div>
+    <div class="m"><div class="v">99%</div><div class="k">less data downlinked</div></div>
+  </div>
+</div>
+<div class="cap">H = hide caption · placeholder metrics</div>
+<script>addEventListener('keydown',e=>{if(e.key.toLowerCase()==='h')document.body.classList.toggle('clean')});</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitch Deck Visuals — MIO Layer</title>
+<style>
+  :root{--accent:#5cf2d6;--accent2:#7aa2ff;--muted:#8ea3c9;--line:rgba(122,162,255,.18);
+    --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#04060f;color:#e9f0ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:48px 24px 80px}
+  .wrap{max-width:1100px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.26em;color:var(--accent);text-transform:uppercase}
+  h1{font-size:clamp(28px,5vw,46px);font-weight:800;letter-spacing:-.02em;margin:12px 0 10px}
+  h1 .g{background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{color:var(--muted);max-width:640px;line-height:1.6;margin-bottom:8px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#070b1c;transition:transform .2s,border-color .2s}
+  .card:hover{transform:translateY(-4px);border-color:rgba(92,242,214,.5)}
+  .thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:#04060f}
+  .thumb iframe{position:absolute;top:0;left:0;width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:0;pointer-events:none}
+  .thumb a{position:absolute;inset:0;z-index:2}
+  .meta{padding:18px 20px}
+  .meta h3{font-size:18px;margin-bottom:6px}
+  .meta p{color:var(--muted);font-size:13.5px;line-height:1.5}
+  .meta .links{margin-top:14px;display:flex;gap:14px;font-family:var(--mono);font-size:12px}
+  .meta a{color:var(--accent);text-decoration:none}.meta a:hover{text-decoration:underline}
+  .how{margin-top:54px;border:1px solid var(--line);border-radius:16px;padding:26px 28px;background:linear-gradient(180deg,rgba(122,162,255,.05),transparent)}
+  .how h2{font-size:20px;margin-bottom:14px}
+  .how ul{list-style:none;display:grid;gap:12px}
+  .how li{color:var(--muted);font-size:14px;line-height:1.55;padding-left:24px;position:relative}
+  .how li::before{content:"▹";position:absolute;left:0;color:var(--accent)}
+  .how b{color:#e9f0ff}
+  code{font-family:var(--mono);font-size:12.5px;color:var(--accent);background:rgba(92,242,214,.08);padding:2px 6px;border-radius:5px}
+  .note{margin-top:22px;font-family:var(--mono);font-size:12px;color:#ff8a5c;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Investor Deck · Prototype Visuals</div>
+  <h1>The <span class="g">MIO Layer</span> visual kit</h1>
+  <p class="lede">Standalone, self-contained animations you can drop into individual slides. Click any tile to open it full-screen. Each one runs offline with no dependencies.</p>
+
+  <div class="grid">
+    <div class="card"><div class="thumb"><iframe src="orbit.html" scrolling="no"></iframe><a href="orbit.html" title="Open"></a></div>
+      <div class="meta"><h3>1 · Earth + MIO Layer orbit</h3>
+        <p>Rotating Earth with the labeled MIO orbital band and neuromorphic chip-satellites circling it, beaming data down.</p>
+        <div class="links"><a href="orbit.html">Open full-screen →</a></div></div></div>
+
+    <div class="card"><div class="thumb"><iframe src="tiers.html" scrolling="no"></iframe><a href="tiers.html" title="Open"></a></div>
+      <div class="meta"><h3>2 · Why MIO (orbital tiers)</h3>
+        <p>Animated bar comparison of LEO vs the MIO Layer vs GEO — explains why you operate in your own band.</p>
+        <div class="links"><a href="tiers.html">Open full-screen →</a></div></div></div>
+
+    <div class="card"><div class="thumb"><iframe src="chip.html" scrolling="no"></iframe><a href="chip.html" title="Open"></a></div>
+      <div class="meta"><h3>3 · Chip-satellite blueprint</h3>
+        <p>Prototype-style schematic of the neuromorphic chip-satellite that draws itself in, with an editable spec sheet.</p>
+        <div class="links"><a href="chip.html">Open full-screen →</a></div></div></div>
+
+    <div class="card"><div class="thumb"><iframe src="dataflow.html" scrolling="no"></iframe><a href="dataflow.html" title="Open"></a></div>
+      <div class="meta"><h3>4 · How it gathers data</h3>
+        <p>Sense → Think → Decide → Downlink pipeline with a moving data packet and headline metrics.</p>
+        <div class="links"><a href="dataflow.html">Open full-screen →</a></div></div></div>
+  </div>
+
+  <div class="how">
+    <h2>How to use these in your deck</h2>
+    <ul>
+      <li><b>Present live:</b> open a file full-screen (F11) and screen-share it as a slide.</li>
+      <li><b>Put it in Keynote / PowerPoint / Canva:</b> screen-record the tab (e.g. macOS <code>Cmd+Shift+5</code>) and drop the clip/GIF onto a slide.</li>
+      <li><b>Embed live:</b> <code>&lt;iframe src="orbit.html"&gt;</code> in a web deck.</li>
+      <li><b>Clean capture:</b> press <code>H</code> to hide on-screen labels/hints; on the orbit, press <code>T</code> for a transparent background.</li>
+      <li><b>Edit the copy:</b> all text is plain HTML — replace <code>[ COMPANY ]</code>, the specs, and the metrics with your real numbers.</li>
+    </ul>
+    <p class="note">⚠ Specs, altitudes &amp; metrics are placeholders — swap in your real figures before pitching.</p>
+  </div>
+</div>
+</body>
+</html>

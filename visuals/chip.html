@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neuromorphic Chip — Blueprint Visual</title>
+<style>
+  :root{--accent:#5cf2d6;--accent2:#7aa2ff;--accent3:#ff8a5c;--bp:#79b4ff;--muted:#8ea3c9;
+    --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{display:grid;place-items:center;padding:4vmin;
+    background:radial-gradient(circle at 50% 40%,#0a1030,#04060f 70%);color:#e9f0ff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  body.clean .cap{display:none}
+  .panel{width:min(96vw,1000px);
+    background:linear-gradient(rgba(8,18,46,.93),rgba(8,18,46,.93)),
+      repeating-linear-gradient(0deg,rgba(121,180,255,.10) 0 1px,transparent 1px 28px),
+      repeating-linear-gradient(90deg,rgba(121,180,255,.10) 0 1px,transparent 1px 28px);
+    border:1px solid rgba(121,180,255,.35);border-radius:16px;padding:34px;position:relative;
+    box-shadow:0 40px 100px rgba(0,0,0,.55)}
+  .stamp{position:absolute;top:20px;right:22px;font-family:var(--mono);font-size:11px;color:var(--bp);
+    border:1px solid rgba(121,180,255,.45);padding:6px 10px;border-radius:6px;letter-spacing:.16em;transform:rotate(2deg)}
+  .head{font-family:var(--mono);letter-spacing:.2em;color:var(--accent);font-size:12px;margin-bottom:4px}
+  .title{font-size:clamp(20px,3vw,30px);font-weight:800;margin-bottom:22px}
+  .title span{color:var(--accent)}
+  .cols{display:grid;grid-template-columns:1.25fr .75fr;gap:34px;align-items:center}
+  @media(max-width:760px){.cols{grid-template-columns:1fr}}
+  svg{width:100%;height:auto}
+  /* animated draw-in */
+  .draw{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.4s ease forwards}
+  .draw.d2{animation-delay:.4s}.draw.d3{animation-delay:.8s}.draw.d4{animation-delay:1.2s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .fade{opacity:0;animation:fade .8s ease forwards 1.8s}
+  @keyframes fade{to{opacity:1}}
+  .pulse{animation:pulse 2.2s ease-in-out infinite 2s}
+  @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+  .spec{list-style:none;font-family:var(--mono);font-size:14px;color:var(--bp)}
+  .spec li{padding:11px 0;border-bottom:1px dashed rgba(121,180,255,.25);display:flex;justify-content:space-between;gap:12px;
+    opacity:0;animation:fade .5s ease forwards}
+  .spec li:nth-child(1){animation-delay:1.9s}.spec li:nth-child(2){animation-delay:2.0s}
+  .spec li:nth-child(3){animation-delay:2.1s}.spec li:nth-child(4){animation-delay:2.2s}
+  .spec li:nth-child(5){animation-delay:2.3s}.spec li:nth-child(6){animation-delay:2.4s}
+  .spec li:nth-child(7){animation-delay:2.5s}
+  .spec span{color:#cfe2ff}.spec b{color:var(--accent)}
+  .cap{position:fixed;bottom:14px;right:16px;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em;opacity:.6}
+</style>
+</head>
+<body>
+<div class="panel">
+  <div class="stamp">REV 0.1 · NOT TO SCALE</div>
+  <div class="head">PROTOTYPE A · CHIP-SATELLITE</div>
+  <div class="title">Neuromorphic <span>Chip-Satellite</span></div>
+  <div class="cols">
+    <svg viewBox="0 0 520 380" fill="none" stroke="#79b4ff" stroke-width="1.4" stroke-linecap="round">
+      <!-- bus -->
+      <rect class="draw" x="170" y="120" width="180" height="130" rx="8"/>
+      <rect class="draw d2" x="186" y="138" width="148" height="96" rx="4" stroke-dasharray="4 4"/>
+      <!-- neuro core -->
+      <rect class="draw d2" x="222" y="160" width="76" height="52" rx="3" stroke="#5cf2d6"/>
+      <text class="fade" x="260" y="188" fill="#5cf2d6" font-family="monospace" font-size="11" text-anchor="middle">NEURO</text>
+      <text class="fade" x="260" y="203" fill="#5cf2d6" font-family="monospace" font-size="11" text-anchor="middle">CORE</text>
+      <g stroke="#5cf2d6" class="fade pulse">
+        <line x1="222" y1="170" x2="206" y2="170"/><line x1="222" y1="186" x2="206" y2="186"/><line x1="222" y1="202" x2="206" y2="202"/>
+        <line x1="298" y1="170" x2="314" y2="170"/><line x1="298" y1="186" x2="314" y2="186"/><line x1="298" y1="202" x2="314" y2="202"/>
+      </g>
+      <!-- left solar -->
+      <g class="draw d3">
+        <rect x="38" y="148" width="112" height="74" rx="3"/>
+        <line x1="38" y1="166" x2="150" y2="166"/><line x1="38" y1="185" x2="150" y2="185"/><line x1="38" y1="204" x2="150" y2="204"/>
+        <line x1="75" y1="148" x2="75" y2="222"/><line x1="113" y1="148" x2="113" y2="222"/>
+        <line x1="150" y1="185" x2="170" y2="185"/>
+      </g>
+      <!-- right solar -->
+      <g class="draw d3">
+        <rect x="370" y="148" width="112" height="74" rx="3"/>
+        <line x1="370" y1="166" x2="482" y2="166"/><line x1="370" y1="185" x2="482" y2="185"/><line x1="370" y1="204" x2="482" y2="204"/>
+        <line x1="407" y1="148" x2="407" y2="222"/><line x1="445" y1="148" x2="445" y2="222"/>
+        <line x1="350" y1="185" x2="370" y2="185"/>
+      </g>
+      <!-- sensor -->
+      <path class="draw d4" d="M240 250 L280 250 L300 302 L220 302 Z"/>
+      <text class="fade" x="260" y="286" fill="#79b4ff" font-family="monospace" font-size="9" text-anchor="middle">SENSOR</text>
+      <!-- downlink -->
+      <path class="draw d4" d="M260 302 L218 360 M260 302 L302 360" stroke="#ff8a5c" stroke-dasharray="3 4"/>
+      <text class="fade" x="330" y="350" fill="#ff8a5c" font-family="monospace" font-size="9">↓ downlink (inference only)</text>
+      <!-- antenna -->
+      <line class="draw d4" x1="260" y1="120" x2="260" y2="84"/>
+      <circle class="fade pulse" cx="260" cy="78" r="6" stroke="#5cf2d6"/>
+      <!-- callouts -->
+      <g class="fade">
+        <line x1="298" y1="186" x2="396" y2="90" stroke="#79b4ff" stroke-dasharray="2 3"/>
+        <circle cx="396" cy="90" r="3" fill="#5cf2d6" stroke="none"/>
+        <text x="404" y="88" fill="#cfe2ff" font-family="monospace" font-size="10">spiking neural mesh</text>
+        <line x1="94" y1="185" x2="58" y2="90" stroke="#79b4ff" stroke-dasharray="2 3"/>
+        <circle cx="58" cy="90" r="3" fill="#7aa2ff" stroke="none"/>
+        <text x="14" y="78" fill="#cfe2ff" font-family="monospace" font-size="10">deployable PV</text>
+      </g>
+    </svg>
+    <ul class="spec">
+      <li><span>Form factor</span><b>3U CubeSat</b></li>
+      <li><span>Processor</span><b>Neuromorphic SNN</b></li>
+      <li><span>Active power</span><b>&lt; 2 W</b></li>
+      <li><span>On-orbit task</span><b>Edge inference</b></li>
+      <li><span>Payload</span><b>Multispectral cam</b></li>
+      <li><span>Downlink</span><b>Inference only</b></li>
+      <li><span>Orbital tier</span><b>MIO Layer</b></li>
+    </ul>
+  </div>
+</div>
+<div class="cap">H = hide caption · reload to replay animation</div>
+<script>addEventListener('keydown',e=>{if(e.key.toLowerCase()==='h')document.body.classList.toggle('clean')});</script>
+</body>
+</html>
