@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Maker</title>
+  <link rel="stylesheet" href="pdf-maker.css" />
+</head>
+<body>
+  <!-- Top toolbar ----------------------------------------------------------->
+  <header class="toolbar">
+    <a class="back" href="../../index.html" title="Back to tools">←</a>
+
+    <div class="group" role="group" aria-label="Tools">
+      <button class="tool" data-mode="select" title="Select / move (V)">Select</button>
+      <button class="tool" data-mode="pen" title="Pen (P)">Pen</button>
+      <button class="tool" data-mode="eraser" title="Eraser (E)">Eraser</button>
+      <button class="tool" data-mode="text" title="Add text (T)">Text</button>
+    </div>
+
+    <div class="group">
+      <label class="ctl" title="Color">
+        <span>Color</span>
+        <input type="color" id="color" value="#1a1a1a" />
+      </label>
+      <label class="ctl" title="Brush / text size">
+        <span>Size</span>
+        <input type="range" id="size" min="1" max="60" value="4" />
+      </label>
+    </div>
+
+    <div class="group">
+      <button id="add-image" title="Add an image from your computer">Image…</button>
+      <button id="delete" title="Delete selected (Del)">Delete</button>
+      <button id="undo" title="Undo (Ctrl/Cmd+Z)">Undo</button>
+      <button id="redo" title="Redo (Ctrl/Cmd+Shift+Z)">Redo</button>
+      <button id="clear" title="Clear the whole page">Clear</button>
+    </div>
+
+    <div class="group right">
+      <label class="ctl" title="Page orientation">
+        <span>Page</span>
+        <select id="orientation">
+          <option value="portrait" selected>Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+      </label>
+      <button id="export" class="primary" title="Export to PDF">Export PDF</button>
+    </div>
+  </header>
+
+  <!-- Hint bar -------------------------------------------------------------->
+  <div class="hint" id="hint">
+    Tip: paste an image or text with <kbd>Ctrl/Cmd</kbd>+<kbd>V</kbd>, or drag an image onto the page.
+  </div>
+
+  <!-- The "sheet of paper" the user works on --------------------------------->
+  <div class="stage" id="stage">
+    <div class="page-shadow">
+      <canvas id="paper"></canvas>
+    </div>
+  </div>
+
+  <!-- Hidden file input used by the "Image…" button ------------------------->
+  <input type="file" id="file-input" accept="image/*" multiple hidden />
+
+  <!-- Tiny toast for feedback (saved / errors) ------------------------------>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Vendored libraries (offline copies, no internet needed) --------------->
+  <script src="../../vendor/fabric.min.js"></script>
+  <script src="../../vendor/jspdf.umd.min.js"></script>
+  <script src="pdf-maker.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #e9e4d4;
+  --bar: #fffdf7;
+  --line: #e3ddca;
+  --ink: #1a1a1a;
+  --muted: #6f6750;
+  --accent: #2f5d50;
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;            /* the stage scrolls, not the page */
+}
+
+/* --- Toolbar --------------------------------------------------------------- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 1rem;
+  background: var(--bar);
+  border-bottom: 1px solid var(--line);
+}
+
+.toolbar .group { display: flex; align-items: center; gap: 0.4rem; }
+.toolbar .group.right { margin-left: auto; }
+
+.back {
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0 0.3rem;
+}
+.back:hover { color: var(--accent); }
+
+button, select {
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+}
+button:hover, select:hover { border-color: #c9c1a8; }
+
+button.tool.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+button.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+button.primary:hover { filter: brightness(1.08); }
+
+.ctl {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.ctl input[type="color"] {
+  width: 30px; height: 30px;
+  padding: 0; border: 1px solid var(--line); border-radius: 6px;
+  background: none; cursor: pointer;
+}
+.ctl input[type="range"] { width: 110px; }
+
+/* --- Hint bar -------------------------------------------------------------- */
+.hint {
+  padding: 0.35rem 1rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  background: var(--bar);
+  border-bottom: 1px solid var(--line);
+}
+.hint kbd {
+  background: #f0ecdf;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0 0.3rem;
+  font-size: 0.72rem;
+}
+
+/* --- Stage (scrollable area holding the page) ------------------------------ */
+.stage {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+}
+
+.page-shadow {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  background: #fff;
+  line-height: 0;              /* kill the gap under the canvas */
+}
+
+/* Fabric wraps the <canvas> in a div; keep the cursor consistent. */
+#paper { display: block; }
+
+/* --- Toast ----------------------------------------------------------------- */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(2rem);
+  background: var(--ink);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  max-width: 80vw;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast.error { background: #8a2b2b; }

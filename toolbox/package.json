@@ -1,0 +1,14 @@
+{
+  "name": "toolbox",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A small desktop app holding a growing stack of personal tools. First tool: a draw / type / paste canvas that exports to PDF.",
+  "author": "Umut Akarsu",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^33.2.0"
+  }
+}
