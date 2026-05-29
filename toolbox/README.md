@@ -55,8 +55,14 @@ more tools, then running `npm run build` again.)
 - **Undo / Redo** — <kbd>Ctrl/Cmd</kbd>+<kbd>Z</kbd> and <kbd>Ctrl/Cmd</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>.
 - **Delete** — removes the selected item (<kbd>Del</kbd>).
 - **Export PDF** — renders the page and opens a native Save dialog.
+- **Zoom** — use the pill at the bottom-right (`−` / `100%` / `+` / `Fit`).
+  The page just *looks* bigger or smaller, like in Word or Google Docs — your
+  drawing and the exported PDF always stay full size. Click `100%` to reset,
+  or `Fit` to size the page to the window.
 
-Keyboard shortcuts: `V` select, `P` pen, `E` eraser, `T` text.
+Keyboard shortcuts: `V` select, `P` pen, `E` eraser, `T` text. Zoom with
+<kbd>Ctrl/Cmd</kbd> `+` / `-` / `0`, or <kbd>Ctrl/Cmd</kbd>+scroll
+(pinch on a trackpad).
 
 ## Project layout
 

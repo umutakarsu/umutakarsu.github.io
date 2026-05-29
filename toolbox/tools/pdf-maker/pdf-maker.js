@@ -13,6 +13,15 @@
 
   let orientation = 'portrait';
 
+  // The page's *logical* size never changes with zoom — only the on-screen
+  // scale does. All object coordinates and the PDF export live in this space.
+  const pageSize = () => A4[orientation];
+
+  // Zoom = view scale only, like Word / Google Docs. 1 means 100%.
+  const ZOOM_MIN = 0.25;
+  const ZOOM_MAX = 4;
+  let zoom = 1;
+
   // --- Set up the Fabric canvas ---------------------------------------------
   const canvas = new fabric.Canvas('paper', {
     width: A4[orientation].w,
@@ -93,8 +102,8 @@
   // ===========================================================================
   function addText(left, top) {
     const text = new fabric.IText('Type here', {
-      left: left ?? canvas.getWidth() / 2 - 60,
-      top: top ?? canvas.getHeight() / 2 - 20,
+      left: left ?? pageSize().w / 2 - 60,
+      top: top ?? pageSize().h / 2 - 20,
       fontFamily: '-apple-system, "Segoe UI", sans-serif',
       fontSize: Math.max(14, Number(sizeInput.value) * 4),
       fill: colorInput.value,
@@ -113,13 +122,12 @@
   function addImageFromDataURL(dataURL, left, top) {
     fabric.Image.fromURL(dataURL, (img) => {
       // Scale the image down so it always fits comfortably on the page.
-      const maxW = canvas.getWidth() * 0.8;
-      const maxH = canvas.getHeight() * 0.8;
-      const scale = Math.min(1, maxW / img.width, maxH / img.height);
+      const { w, h } = pageSize();
+      const scale = Math.min(1, (w * 0.8) / img.width, (h * 0.8) / img.height);
       img.scale(scale);
       img.set({
-        left: left ?? (canvas.getWidth() - img.width * scale) / 2,
-        top: top ?? (canvas.getHeight() - img.height * scale) / 2,
+        left: left ?? (w - img.width * scale) / 2,
+        top: top ?? (h - img.height * scale) / 2,
       });
       canvas.add(img);
       canvas.setActiveObject(img);
@@ -182,6 +190,46 @@
   });
 
   // ===========================================================================
+  // Zoom — scales only how big the page looks on screen. The drawing and the
+  // exported PDF always stay at full resolution.
+  // ===========================================================================
+  const zoomLabel = $('zoom-label');
+
+  function applyZoom(level) {
+    zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, level));
+    const { w, h } = pageSize();
+    canvas.setZoom(zoom);                 // scale the content...
+    canvas.setWidth(w * zoom);            // ...and grow/shrink the canvas to match
+    canvas.setHeight(h * zoom);
+    canvas.requestRenderAll();
+    zoomLabel.textContent = Math.round(zoom * 100) + '%';
+  }
+
+  const zoomBy = (factor) => applyZoom(zoom * factor);
+
+  function fitToWindow() {
+    const padding = 48; // a little breathing room around the page
+    const { w, h } = pageSize();
+    applyZoom(Math.min((stage.clientWidth - padding) / w, (stage.clientHeight - padding) / h));
+  }
+
+  $('zoom-in').addEventListener('click', () => zoomBy(1.25));
+  $('zoom-out').addEventListener('click', () => zoomBy(1 / 1.25));
+  $('zoom-label').addEventListener('click', () => applyZoom(1)); // click % -> 100%
+  $('zoom-fit').addEventListener('click', fitToWindow);
+
+  // Ctrl/Cmd + scroll wheel, and trackpad pinch (which arrives as ctrl+wheel).
+  stage.addEventListener(
+    'wheel',
+    (e) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      zoomBy(e.deltaY < 0 ? 1.08 : 1 / 1.08);
+    },
+    { passive: false }
+  );
+
+  // ===========================================================================
   // Delete / clear
   // ===========================================================================
   function deleteSelection() {
@@ -199,10 +247,17 @@
     if (!confirm('Clear the whole page? This cannot be undone with one click.')) return;
     canvas.clear();
     canvas.backgroundColor = '#ffffff';
-    canvas.requestRenderAll();
+    applyZoom(zoom); // clear() resets the view, so re-apply the current zoom
   });
 
   document.addEventListener('keydown', (e) => {
+    // Zoom shortcuts work everywhere (like a document editor).
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === '=' || e.key === '+') { e.preventDefault(); return zoomBy(1.25); }
+      if (e.key === '-' || e.key === '_') { e.preventDefault(); return zoomBy(1 / 1.25); }
+      if (e.key === '0') { e.preventDefault(); return applyZoom(1); }
+    }
+
     const active = canvas.getActiveObject();
     const editing = active && active.isEditing;
     if ((e.key === 'Delete' || e.key === 'Backspace') && !editing) {
@@ -276,9 +331,7 @@
   // ===========================================================================
   $('orientation').addEventListener('change', (e) => {
     orientation = e.target.value;
-    canvas.setWidth(A4[orientation].w);
-    canvas.setHeight(A4[orientation].h);
-    canvas.requestRenderAll();
+    applyZoom(zoom); // re-size the page for the new orientation at current zoom
   });
 
   // ===========================================================================
@@ -287,10 +340,13 @@
   $('export').addEventListener('click', async () => {
     // Deselect so selection handles don't end up in the image.
     canvas.discardActiveObject();
-    canvas.requestRenderAll();
 
-    // Render the page at 2x for a crisp result.
+    // Capture at 100% so the exported resolution never depends on the zoom
+    // level; render at 2x for a crisp result, then restore the user's view.
+    const viewZoom = zoom;
+    applyZoom(1);
     const dataURL = canvas.toDataURL({ format: 'png', multiplier: 2 });
+    applyZoom(viewZoom);
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ orientation, unit: 'mm', format: 'a4' });
@@ -322,6 +378,7 @@
     toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
   }
 
-  // Start in select mode.
+  // Start in select mode at 100% zoom.
   setMode('select');
+  applyZoom(1);
 })();

@@ -104,12 +104,11 @@ button.primary:hover { filter: brightness(1.08); }
   flex: 1;
   overflow: auto;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
   padding: 2rem;
 }
 
 .page-shadow {
+  margin: auto;                /* centers when it fits, stays scrollable when zoomed in */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
   background: #fff;
   line-height: 0;              /* kill the gap under the canvas */
@@ -139,3 +138,39 @@ button.primary:hover { filter: brightness(1.08); }
   transform: translateX(-50%) translateY(0);
 }
 .toast.error { background: #8a2b2b; }
+
+/* --- Zoom control (floating pill, bottom-right) ---------------------------- */
+.zoombar {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  background: var(--bar);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.25rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+}
+.zoombar button {
+  border: none;
+  background: transparent;
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+  line-height: 1;
+}
+.zoombar button:hover { background: #f0ecdf; }
+#zoom-out, #zoom-in { font-size: 1.1rem; }
+#zoom-label {
+  min-width: 3.4rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+#zoom-fit {
+  font-size: 0.8rem;
+  color: var(--muted);
+  border-left: 1px solid var(--line);
+  border-radius: 0 8px 8px 0;
+}

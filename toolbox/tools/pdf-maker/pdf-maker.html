@@ -51,7 +51,7 @@
 
   <!-- Hint bar -------------------------------------------------------------->
   <div class="hint" id="hint">
-    Tip: paste an image or text with <kbd>Ctrl/Cmd</kbd>+<kbd>V</kbd>, or drag an image onto the page.
+    Tip: paste with <kbd>Ctrl/Cmd</kbd>+<kbd>V</kbd>, drag an image onto the page, or zoom with <kbd>Ctrl/Cmd</kbd>+scroll (pinch on a trackpad).
   </div>
 
   <!-- The "sheet of paper" the user works on --------------------------------->
@@ -66,6 +66,14 @@
 
   <!-- Tiny toast for feedback (saved / errors) ------------------------------>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Zoom control (like the one in Word / Google Docs) --------------------->
+  <div class="zoombar" id="zoombar">
+    <button id="zoom-out" title="Zoom out (Ctrl/Cmd -)">−</button>
+    <button id="zoom-label" title="Reset to 100% (Ctrl/Cmd 0)">100%</button>
+    <button id="zoom-in" title="Zoom in (Ctrl/Cmd +)">+</button>
+    <button id="zoom-fit" title="Fit the page to the window">Fit</button>
+  </div>
 
   <!-- Vendored libraries (offline copies, no internet needed) --------------->
   <script src="../../vendor/fabric.min.js"></script>
