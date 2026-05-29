@@ -21,6 +21,29 @@ npm start        # opens the app window
 `npm install` needs internet once (to fetch Electron). After that the app runs
 fully offline — the drawing/PDF libraries are already vendored in `vendor/`.
 
+## Turn it into a real Mac app (open it from Spotlight, no terminal)
+
+Run the build **once** in a terminal:
+
+```bash
+cd toolbox
+npm install        # if you haven't already
+npm run build
+```
+
+This creates `PDF Maker.app` inside the `toolbox/dist/` folder. Then:
+
+1. Open the `dist` folder in Finder.
+2. Drag **PDF Maker.app** into your **Applications** folder.
+
+That's it. From now on press <kbd>Cmd</kbd>+<kbd>Space</kbd>, type **PDF Maker**,
+and hit Return — no terminal needed. (You can also rename the app later by
+changing `"productName"` in `package.json`, e.g. to `"Toolbox"` once it holds
+more tools, then running `npm run build` again.)
+
+> The app is built and signed locally, so macOS opens it without the
+> "unidentified developer" warning you get from downloaded apps.
+
 ## Using the PDF Maker
 
 - **Select** — move, resize, or click an item to pick it.
